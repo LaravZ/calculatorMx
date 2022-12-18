@@ -1,10 +1,8 @@
 import { Component, createElement, ReactNode } from "react";
-
 import { CalculatorContainerProps } from "../typings/CalculatorProps";
-import ButtonGrid from "./components/styles/ButtonGrid";
-import StyledDisplay from "./components/styles/StyledDisplay";
-import StyledButton from "./components/styles/StyledButton";
 import CalculatorStyle from "./components/styles/CalculatorStyle";
+import Display from "./components/Display";
+import Buttons from "./components/Buttons";
 
 export interface State {
     inputNumber: number;
@@ -27,33 +25,25 @@ export class Calculator extends Component<CalculatorContainerProps> {
         previousValue: 0
     };
 
+    handleClick = (value: number | string): void => {
+        if (typeof value === "number") {
+            this.onClickHandlerNumber(value);
+        } else if (value === "+") {
+            this.onClickHandlerPlus();
+        } else if (value === "C") {
+            this.onClickHandlerReset();
+        } else if (value === "=") {
+            this.onClickHandlerCalculateResult();
+        } else {
+            alert(`${value} not yet implemented`);
+        }
+    };
+
     render(): ReactNode {
         return (
             <CalculatorStyle>
-                <StyledDisplay className="display">
-                    <div>
-                        <p>Input: {this.state.calculatorString !== "" ? this.state.calculatorString : "?"}</p>
-                        <p>Result: {this.state.result}</p>
-                    </div>
-                </StyledDisplay>
-                <ButtonGrid className="buttons">
-                    <StyledButton onClick={() => this.onClickHandlerNumber(1)}>1</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(2)}>2</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(3)}>3</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerPlus()}>/</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(4)}>4</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(5)}>5</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(6)}>6</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerPlus()}>*</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(7)}>7</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(8)}>8</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(9)}>9</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerPlus()}>-</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerReset()}>C</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerNumber(0)}>0</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerCalculateResult()}>=</StyledButton>
-                    <StyledButton onClick={() => this.onClickHandlerPlus()}>+</StyledButton>
-                </ButtonGrid>
+                <Display calculatorString={this.state.calculatorString} result={this.state.result} />
+                <Buttons handleClick={this.handleClick} />
             </CalculatorStyle>
         );
     }
