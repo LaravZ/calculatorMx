@@ -71,8 +71,8 @@ export class Calculator extends Component<CalculatorContainerProps> {
 
         //action to set mendix value & trigger OCH event
         this.props.valueAttribute?.setValue(resultOfCalculation.toString());
-        if (this.props.onChange?.canExecute && !this.props.onChange.isExecuting) {
-            this.props.onChange?.execute();
+        if (this.props.onChange && this.props.onChange.canExecute) {
+            this.props.onChange.execute();
         }
 
 
