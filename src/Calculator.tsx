@@ -13,10 +13,6 @@ export interface State {
 }
 
 export class Calculator extends Component<CalculatorContainerProps> {
-    private readonly onClickHandlerNumber = this.onClickNumber.bind(this);
-    private readonly onClickHandlerPlus = this.onClickNumberPlus.bind(this);
-    private readonly onClickHandlerCalculateResult = this.onClickCalculateResult.bind(this);
-    private readonly onClickHandlerReset = this.onClickReset.bind(this);
     state: State = {
         inputNumber: 0,
         calculatorNumber: "",
@@ -27,61 +23,61 @@ export class Calculator extends Component<CalculatorContainerProps> {
 
     handleClick = (value: number | string): void => {
         if (typeof value === "number") {
-            this.onClickHandlerNumber(value);
+            this.onClickNumber(value);
         } else if (value === "+") {
-            this.onClickHandlerPlus();
+            this.onClickNumberPlus();
         } else if (value === "C") {
-            this.onClickHandlerReset();
+            this.onClickReset();
         } else if (value === "=") {
-            this.onClickHandlerCalculateResult();
+            this.onClickCalculateResult();
         } else {
             alert(`${value} not yet implemented`);
         }
     };
 
     render(): ReactNode {
+        const combinedResult: string = this.props.valueAttribute + this.state.result.toString();
         return (
             <CalculatorStyle>
-                <Display calculatorString={this.state.calculatorString} result={this.state.result} />
+                <Display calculatorString={this.state.calculatorString} result={combinedResult} />
                 <Buttons handleClick={this.handleClick} />
             </CalculatorStyle>
         );
     }
 
     private onClickNumber(number: number): void {
-        const { state: clickstate } = this;
+        const { state: clickState } = this;
         this.setState({
-            calculatorNumber: clickstate.calculatorNumber + number,
-            calculatorString: clickstate.calculatorString + number,
+            calculatorNumber: clickState.calculatorNumber + number,
+            calculatorString: clickState.calculatorString + number,
             calculateClicked: false
         });
     }
 
     private onClickNumberPlus(): void {
-        const { state: clickstate } = this;
+        const { state: clickState } = this;
         this.setState({
-            previousValue: Number(clickstate.calculatorNumber),
+            previousValue: Number(clickState.calculatorNumber),
             calculatorNumber: "",
-            calculatorString: clickstate.calculatorString + " + "
+            calculatorString: clickState.calculatorString + " + "
         });
     }
     private onClickCalculateResult(): void {
-        const { state: clickstate } = this;
-        const resultOfCalculation = clickstate.previousValue + Number(clickstate.calculatorNumber);
+        const { state: clickState } = this;
+        const resultOfCalculation = clickState.previousValue + Number(clickState.calculatorNumber);
 
-        //action to set mendix value & trigger OCH event
+        // Action to set Mendix value & trigger OCH event.
         this.props.valueAttribute?.setValue(resultOfCalculation.toString());
         if (this.props.onChange && this.props.onChange.canExecute) {
             this.props.onChange.execute();
         }
-
 
         this.setState({
             calculateClicked: true,
             result: resultOfCalculation,
             previousValue: resultOfCalculation,
             calculatorNumber: "",
-            calculatorString: clickstate.calculatorString + " = " + resultOfCalculation
+            calculatorString: clickState.calculatorString + " = " + resultOfCalculation
         });
     }
     private onClickReset(): void {
