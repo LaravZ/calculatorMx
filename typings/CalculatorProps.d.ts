@@ -4,12 +4,29 @@
  * @author Mendix Widgets Framework Team
  */
 import { CSSProperties } from "react";
-import { EditableValue } from "mendix";
+import { ActionValue, EditableValue } from "mendix";
+import { Big } from "big.js";
 
 export interface CalculatorContainerProps {
     name: string;
     class: string;
     style?: CSSProperties;
     tabIndex?: number;
-    textAttribute?: EditableValue<string>;
+    valueAttribute?: EditableValue<string | Big>;
+    calculatorValue: string;
+    onChange?: ActionValue;
+}
+
+export interface CalculatorPreviewProps {
+    /**
+     * @deprecated Deprecated since version 9.18.0. Please use class property instead.
+     */
+    className: string;
+    class: string;
+    style: string;
+    styleObject?: CSSProperties;
+    readOnly: boolean;
+    valueAttribute: string;
+    calculatorValue: string;
+    onChange: {} | null;
 }

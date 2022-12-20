@@ -68,6 +68,14 @@ export class Calculator extends Component<CalculatorContainerProps> {
     private onClickCalculateResult(): void {
         const { state: clickstate } = this;
         const resultOfCalculation = clickstate.previousValue + Number(clickstate.calculatorNumber);
+
+        //action to set mendix value & trigger OCH event
+        this.props.valueAttribute?.setValue(resultOfCalculation.toString());
+        if (this.props.onChange?.canExecute && !this.props.onChange.isExecuting) {
+            this.props.onChange?.execute();
+        }
+
+
         this.setState({
             calculateClicked: true,
             result: resultOfCalculation,
