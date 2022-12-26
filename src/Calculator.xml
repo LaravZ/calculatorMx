@@ -22,7 +22,7 @@
                 </attributeTypes>
             </property>
             <property key="calculatorValue" type="string" required="false">
-                <caption>Default value</caption>
+                <caption>Calculator value</caption>
                 <description>The calculator value shown when no value is provided via the attribute</description>
             </property>
         </propertyGroup>

@@ -36,7 +36,8 @@ export class Calculator extends Component<CalculatorContainerProps> {
     };
 
     render(): ReactNode {
-        const combinedResult: string = this.props.valueAttribute + this.state.result.toString();
+        const mxPrefix: string | undefined = this.props.calculatorValue;
+        const combinedResult: string = mxPrefix + this.state.result.toString();
         return (
             <CalculatorStyle>
                 <Display calculatorString={this.state.calculatorString} result={combinedResult} />

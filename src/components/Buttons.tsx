@@ -3,26 +3,12 @@ import ButtonGrid from "./styles/ButtonGrid";
 import StyledButton from "./styles/StyledButton";
 
 const Buttons = ({ handleClick }: { handleClick: (value: number | string) => void }): ReactElement => {
-    return (
-        <ButtonGrid className="buttons">
-            <StyledButton onClick={() => handleClick(1)}>1</StyledButton>
-            <StyledButton onClick={() => handleClick(2)}>2</StyledButton>
-            <StyledButton onClick={() => handleClick(3)}>3</StyledButton>
-            <StyledButton onClick={() => handleClick("/")}>/</StyledButton>
-            <StyledButton onClick={() => handleClick(4)}>4</StyledButton>
-            <StyledButton onClick={() => handleClick(5)}>5</StyledButton>
-            <StyledButton onClick={() => handleClick(6)}>6</StyledButton>
-            <StyledButton onClick={() => handleClick("*")}>*</StyledButton>
-            <StyledButton onClick={() => handleClick(7)}>7</StyledButton>
-            <StyledButton onClick={() => handleClick(8)}>8</StyledButton>
-            <StyledButton onClick={() => handleClick(9)}>9</StyledButton>
-            <StyledButton onClick={() => handleClick("-")}>-</StyledButton>
-            <StyledButton onClick={() => handleClick("C")}>C</StyledButton>
-            <StyledButton onClick={() => handleClick(0)}>0</StyledButton>
-            <StyledButton onClick={() => handleClick("=")}>=</StyledButton>
-            <StyledButton onClick={() => handleClick("+")}>+</StyledButton>
-        </ButtonGrid>
+    const values: Array<string | number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "/", "*", "-", "C", "=", "+"];
+    const buttons: ReactElement[] = [];
+    values.forEach((item: number | string) =>
+        buttons.push(<StyledButton onClick={() => handleClick(item)}>{item}</StyledButton>)
     );
+    return <ButtonGrid className="buttons">{buttons}</ButtonGrid>;
 };
 
 export default Buttons;

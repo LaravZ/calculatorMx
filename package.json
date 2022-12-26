@@ -2,9 +2,9 @@
   "name": "calculator",
   "widgetName": "Calculator",
   "version": "1.0.0",
-  "description": "Just a cool calculator!",
+  "description": "Calculator Demo Example",
   "copyright": "Ordina BV 2022",
-  "author": "Evert-Jan van den Broek",
+  "author": "Evert-Jan van den Broek & Lara van Zuilen",
   "engines": {
     "node": ">=16"
   },
